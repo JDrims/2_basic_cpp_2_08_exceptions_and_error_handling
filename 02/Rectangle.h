@@ -6,5 +6,6 @@ namespace Figures {
     {
     public:
         Rectangle(double side_a, double side_b);
+        Rectangle(const std::string& figureName, double side_a, double side_b);
     };
 }

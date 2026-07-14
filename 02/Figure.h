@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include "FigureException.h"
 
 class Figure
 {

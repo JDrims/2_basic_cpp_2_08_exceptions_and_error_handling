@@ -1,6 +1,5 @@
 #pragma once
 #include "Figure.h"
-#include "FigureException.h"
 
 class Triangle : public Figure
 {
@@ -9,6 +8,8 @@ class Triangle : public Figure
 
 public:
 	Triangle(double side_a, double side_b, double side_c,
+		double angle_A, double angle_B, double angle_C);
+	Triangle(const std::string& figureName, double side_a, double side_b, double side_c,
 		double angle_A, double angle_B, double angle_C);
 
 	double get_a() const;

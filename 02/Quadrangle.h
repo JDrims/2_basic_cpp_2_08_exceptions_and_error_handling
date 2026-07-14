@@ -10,6 +10,9 @@ class Quadrangle : public Figure
 public:
     Quadrangle(double side_a, double side_b, double side_c, double side_d,
         double angle_A, double angle_B, double angle_C, double angle_D);
+    Quadrangle(const std::string& figureName,
+        double side_a, double side_b, double side_c, double side_d,
+        double angle_A, double angle_B, double angle_C, double angle_D);
 
     double get_a() const;
     double get_b() const;

@@ -3,130 +3,78 @@
 #include "figures.h"
 
 void print_info(const Figure* figure);
+void createTriangle(double, double, double, double, double, double);
+void createRightTriangle(double, double, double, double, double);
+void createIsoscelesTriangle(double, double, double, double);
+void createEquilateralTriangle(double);
+void createQuadrangle(double, double, double, double, double, double, double, double);
+void createRectangle(double, double);
+void createSquare(double);
+void createParallelogram(double, double, double, double);
+void createRhombus(double, double, double);
 
 int main()
 {
 	SetConsoleCP(65001);
 	SetConsoleOutputCP(65001);
 
-	try {
-		Triangle triangle(10, 20, 30, 50, 60, 70);
-		triangle.print_info();
-		std::cout << " создан" << std::endl;
-	}
-	catch (const FigureException& e) {
-		std::cout << "Ошибка создания фигуры. Причина: " << e.what() << std::endl;
-	}
+	// ========== ТРЕУГОЛЬНИК ==========
+	createTriangle(10, 20, 15, 50, 60, 70); // Правильный
+	createTriangle(10, 20, 30, 90, 60, 70); // Ошибка: сумма углов != 180
+	createTriangle(-5, 10, 12, 60, 60, 60); // Ошибка: отрицательная сторона
+	createTriangle(10, 20, 30, 200, 60, -10); // Ошибка: угол вне диапазона (0,180)
 
-	try {
-		RightTriangle right_tri(10, 20, 30, 50, 60);
-		right_tri.print_info();
-		std::cout << " создан" << std::endl;
-	}
-	catch (const FigureException& e) {
-		std::cout << "Ошибка создания фигуры. Причина: " << e.what() << std::endl;
-	}
+	std::cout << std::endl;
 
-	try {
-		IsoscelesTriangle isosceles_tri(10, 20, 50, 60);
-		isosceles_tri.print_info();
-		std::cout << " создан" << std::endl;
-	}
-	catch (const FigureException& e) {
-		std::cout << "Ошибка создания фигуры. Причина: " << e.what() << std::endl;
-	}
+	// ========== ПРЯМОУГОЛЬНЫЙ ТРЕУГОЛЬНИК ==========
+	createRightTriangle(3, 4, 5, 30, 60); // Правильный
+	createRightTriangle(10, 20, 30, 50, 60); // Ошибка: сумма углов не 180
 
-	try {
-		EquilateralTriangle equilateral_tri(30);
-		equilateral_tri.print_info();
-		std::cout << " создан" << std::endl;
-	}
-	catch (const FigureException& e) {
-		std::cout << "Ошибка создания фигуры. Причина: " << e.what() << std::endl;
-	}
+	std::cout << std::endl;
+	
+	// ========== РАВНОБЕДРЕННЫЙ ТРЕУГОЛЬНИК ==========
+	createIsoscelesTriangle(10, 20, 50, 80); // Правильный
+	createIsoscelesTriangle(10, 20, 50, 60); // Ошибка: сумма углов != 180
 
-	try {
-		Quadrangle quadrangle(10, 20, 30, 40, 50, 60, 70, 80);
-		quadrangle.print_info();
-		std::cout << " создан" << std::endl;
-	}
-	catch (const FigureException& e) {
-		std::cout << "Ошибка создания фигуры. Причина: " << e.what() << std::endl;
-	}
+	std::cout << std::endl;
 
-	try {
-		Figures::Rectangle rectangle(10, 20);
-		rectangle.print_info();
-		std::cout << " создан" << std::endl;
-	}
-	catch (const FigureException& e) {
-		std::cout << "Ошибка создания фигуры. Причина: " << e.what() << std::endl;
-	}
+	// ========== РАВНОСТОРОННИЙ ТРЕУГОЛЬНИК ==========
+	createEquilateralTriangle(30); // Правильный
+	createEquilateralTriangle(-30); // Ошибка: отрицательная сторона
 
-	try {
-		Square square(20);
-		square.print_info();
-		std::cout << " создан" << std::endl;
-	}
-	catch (const FigureException& e) {
-		std::cout << "Ошибка создания фигуры. Причина: " << e.what() << std::endl;
-	}
+	std::cout << std::endl;
 
-	try {
-		Parallelogram parallelogram(20, 30, 30, 40);
-		parallelogram.print_info();
-		std::cout << " создан" << std::endl;
-	}
-	catch (const FigureException& e) {
-		std::cout << "Ошибка создания фигуры. Причина: " << e.what() << std::endl;
-	}
+	// ========== ЧЕТЫРЁХУГОЛЬНИК ==========
+	createQuadrangle(10, 20, 30, 40, 80, 100, 90, 90); // Правильный
+	createQuadrangle(10, 20, 30, 40, 50, 60, 70, 80); // Ошибка: сумма углов != 360
+	createQuadrangle(-10, 20, 30, 40, 90, 90, 90, 90); // Ошибка: отрицательная сторона
+	createQuadrangle(10, 20, 30, 40, 370, 0, 0, 0); // Ошибка: угол >= 360
 
-	try {
-		Rhombus rhombus(30, 30, 40);
-		rhombus.print_info();
-		std::cout << " создан" << std::endl;
-	}
-	catch (const FigureException& e) {
-		std::cout << "Ошибка создания фигуры. Причина: " << e.what() << std::endl;
-	}
+	std::cout << std::endl;
 
-	std::cout << "\n--- Проверка некорректных данных ---\n";
+	// ========== ПАРАЛЛЕЛОГРАММ ==========
+	createParallelogram(20, 30, 60, 120); // Правильный
+	createParallelogram(20, 30, 30, 40); // Ошибка: сумма углов != 360
+	createParallelogram(20, 30, 200, 50); // Ошибка: углы вне (0,180)
 
-	try {
-		Triangle invalid_tri(3, 4, 5, 30, 60, 100);
-		invalid_tri.print_info();
-		std::cout << " создан" << std::endl;
-	}
-	catch (const FigureException& e) {
-		std::cout << "Ошибка создания фигуры. Причина: " << e.what() << std::endl;
-	}
+	std::cout << std::endl;
 
-	try {
-		Quadrangle invalid_quad(1, 2, 3, 4, 90, 90, 90, 100);
-		invalid_quad.print_info();
-		std::cout << " создан" << std::endl;
-	}
-	catch (const FigureException& e) {
-		std::cout << "Ошибка создания фигуры. Причина: " << e.what() << std::endl;
-	}
+	// ========== ПРЯМОУГОЛЬНИК ==========
+	createRectangle(10, 20); // Правильный
+	createRectangle(-10, 20); // Ошибка: отрицательная сторона
 
-	try {
-		Triangle invalid_side(-1, 2, 3, 60, 60, 60);
-		invalid_side.print_info();
-		std::cout << " создан" << std::endl;
-	}
-	catch (const FigureException& e) {
-		std::cout << "Ошибка создания фигуры. Причина: " << e.what() << std::endl;
-	}
+	std::cout << std::endl;
 
-	try {
-		Quadrangle invalid_angle(1, 2, 3, 4, -10, 90, 90, 190);
-		invalid_angle.print_info();
-		std::cout << " создан" << std::endl;
-	}
-	catch (const FigureException& e) {
-		std::cout << "Ошибка создания фигуры. Причина: " << e.what() << std::endl;
-	}
+	// ========== КВАДРАТ ==========
+	createSquare(25); // Правильный
+	createSquare(-5); // Ошибка: отрицательная сторона
+
+	std::cout << std::endl;
+
+	// ========== РОМБ ==========
+	createRhombus(30, 60, 120); // Правильный
+	createRhombus(30, 30, 40); // Ошибка: сумма углов != 360
+	createRhombus(30, 200, 50); // Ошибка: угол вне (0,180)
 
 	return 0;
 }
@@ -134,4 +82,113 @@ int main()
 void print_info(const Figure* figure)
 {
 	figure->print_info();
+}
+
+void createTriangle(double side_a, double side_b, double side_c,
+	double angle_A, double angle_B, double angle_C)
+{
+	try {
+		Triangle t(side_a, side_b, side_c, angle_A, angle_B, angle_C);
+		std::cout << "Создана фигура" << std::endl;
+		print_info(&t);
+	}
+	catch (const FigureException& e) {
+		std::cout << "Ошибка создания фигуры (" << e.getNameFigure() << ") Причина: " << e.what() << std::endl;
+	}
+}
+void createRightTriangle(double side_a, double side_b, double side_c, double angle_A, double angle_B)
+{
+	try {
+		RightTriangle rt(side_a, side_b, side_c, angle_A, angle_B);
+		std::cout << "Создана фигура" << std::endl;
+		print_info(&rt);
+	}
+	catch (const FigureException& e) {
+		std::cout << "Ошибка создания фигуры (" << e.getNameFigure() << ") Причина: " << e.what() << std::endl;
+	}
+}
+
+void createIsoscelesTriangle(double side_a, double side_b, double angle_A, double angle_B)
+{
+	try {
+		IsoscelesTriangle it(side_a, side_b, angle_A, angle_B);
+		std::cout << "Создана фигура" << std::endl;
+		print_info(&it);
+	}
+	catch (const FigureException& e) {
+		std::cout << "Ошибка создания фигуры (" << e.getNameFigure() << ") Причина: " << e.what() << std::endl;
+	}
+}
+
+void createEquilateralTriangle(double side)
+{
+	try {
+		EquilateralTriangle et(side);
+		std::cout << "Создана фигура" << std::endl;
+		print_info(&et);
+	}
+	catch (const FigureException& e) {
+		std::cout << "Ошибка создания фигуры (" << e.getNameFigure() << ") Причина: " << e.what() << std::endl;
+	}
+}
+
+void createQuadrangle(double side_a, double side_b, double side_c, double side_d,
+	double angle_A, double angle_B, double angle_C, double angle_D)
+{
+	try {
+		Quadrangle q(side_a, side_b, side_c, side_d, angle_A, angle_B, angle_C, angle_D);
+		std::cout << "Создана фигура" << std::endl;
+		print_info(&q);
+	}
+	catch (const FigureException& e) {
+		std::cout << "Ошибка создания фигуры (" << e.getNameFigure() << ") Причина: " << e.what() << std::endl;
+	}
+}
+
+void createRectangle(double side_a, double side_b)
+{
+	try {
+		Figures::Rectangle r(side_a, side_b);
+		std::cout << "Создана фигура" << std::endl;
+		print_info(&r);
+	}
+	catch (const FigureException& e) {
+		std::cout << "Ошибка создания фигуры (" << e.getNameFigure() << ") Причина: " << e.what() << std::endl;
+	}
+}
+
+void createSquare(double side)
+{
+	try {
+		Square s(side);
+		std::cout << "Создана фигура" << std::endl;
+		print_info(&s);
+	}
+	catch (const FigureException& e) {
+		std::cout << "Ошибка создания фигуры (" << e.getNameFigure() << ") Причина: " << e.what() << std::endl;
+	}
+}
+
+void createParallelogram(double side_a, double side_b, double angle_A, double angle_B)
+{
+	try {
+		Parallelogram p(side_a, side_b, angle_A, angle_B);
+		std::cout << "Создана фигура" << std::endl;
+		print_info(&p);
+	}
+	catch (const FigureException& e) {
+		std::cout << "Ошибка создания фигуры (" << e.getNameFigure() << ") Причина: " << e.what() << std::endl;
+	}
+}
+
+void createRhombus(double side, double angle_A, double angle_B)
+{
+	try {
+		Rhombus rh(side, angle_A, angle_B);
+		std::cout << "Создана фигура" << std::endl;
+		print_info(&rh);
+	}
+	catch (const FigureException& e) {
+		std::cout << "Ошибка создания фигуры (" << e.getNameFigure() << ") Причина: " << e.what() << std::endl;
+	}
 }
